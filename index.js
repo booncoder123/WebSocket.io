@@ -11,9 +11,12 @@ app.use(express.static("public"));
 
 //Socket setup
 var io = socket(server);
+
+//socket recieve event from other clients
 io.on("connection", function (socket) {
   console.log("made socket connection", socket.id);
 
+  //socket expand event to other clients
   socket.on("chat", function (data) {
     console.log(data.message);
     io.sockets.emit("chat", data);
